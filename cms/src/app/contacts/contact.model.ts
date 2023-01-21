@@ -9,7 +9,7 @@ public phone: string;
 
 public imageUrl: string; 
 
-public group:[];
+public group:any[];
 
     constructor (id:number, name:string,email:string,phone:string,imageUrl:string,group:[]){
         this.id = id;
