@@ -1,14 +1,32 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
+  <div class="panel-heading" min-height="50px !important">
     <div class="row">
-      <div class="pull-right">
-        <div class="col-xs-12">
-          <button class="btn btn-success">Delete</button>
+      <div class="col-xs-6">
+        <div class="row">
+          <div class="pull-left">
+            <div class="col-xs-12">
+              <h3>Bro. {{ contact.name }}</h3>
+            </div>
+          </div>
+          <div class="pull-left">
+            <div class="col-xs-12">
+              <img [src]="contact.imageUrl" />
+            </div>
+          </div>
         </div>
       </div>
-      <div class="pull-right">
-        <div class="col-xs-12">
-          <button class="btn btn-success">Edit</button>
+      <div class="col-xs-6">
+        <div class="row">
+          <div class="pull-right">
+            <div class="col-xs-12">
+              <button class="btn btn-success">Delete</button>
+            </div>
+          </div>
+          <div class="pull-right">
+            <div class="col-xs-12">
+              <button class="btn btn-success">Edit</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -16,8 +34,8 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-12">
-        <p>Email:</p>
-        <p>Name:</p>
+        <p>Email: {{ contact.email }}</p>
+        <p>Phone: {{ contact.phone }}</p>
       </div>
     </div>
   </div>
