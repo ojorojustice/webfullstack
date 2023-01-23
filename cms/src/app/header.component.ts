@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class HeaderComponent {
+
+  @Output() selectedHeaderEvent = new EventEmitter<string>();
+
+
+  onSelected(selectedEvent: string){
+    console.log(selectedEvent);
+    this.selectedHeaderEvent.emit(selectedEvent);
+  }
 
 }
