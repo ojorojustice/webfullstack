@@ -24,7 +24,7 @@ ngOnInit(){
 }
 
 onSelected(contact: Contact){
-  console.log(contact)
+  
   this.selectedContactEvent.emit(contact);
 }
 

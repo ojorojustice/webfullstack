@@ -1,4 +1,5 @@
-export class Contact{
+export class Message{
+  [x: string]: any;
     public id: number;
 
 public subject: string;
