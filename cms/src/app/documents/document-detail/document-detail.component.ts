@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./document-detail.component.css']
 })
 export class DocumentDetailComponent {
-
+     document!: Document;
 }
