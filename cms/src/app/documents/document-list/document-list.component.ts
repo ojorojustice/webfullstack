@@ -22,7 +22,6 @@ constructor(){
 
 }
 
-
 ngOnInit(){
   
 }

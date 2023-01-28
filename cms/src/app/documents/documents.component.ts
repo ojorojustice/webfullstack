@@ -1,10 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Document } from './document.model';
 
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.css']
 })
-export class DocumentsComponent {
+export class DocumentsComponent implements OnInit{
+  @Input() selectedDocument!: Document;
+ 
+
+ constructor(){}
+
+ ngOnInit(): void {
+   
+ }
+
+ selectView(selectedDocument: Document){
+  this.selectedDocument = selectedDocument;
+}
 
 }
