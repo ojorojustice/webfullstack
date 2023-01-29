@@ -11,11 +11,11 @@ export class DocumentListComponent implements OnInit{
   @Output() selectedDocumentEvent = new EventEmitter<Document>();
 
   documents: Document[]=[
-    new Document(1,"R. Kent Jackson","jacksonk@byui.edu","208-496-3771"),
-    new Document(2,"Rex Barzee","barzeer@byui.edu","208-496-3768"),
-    new Document(3,"R. Kent Jackson","jacksonk@byui.edu","208-496-3771"),
-    new Document(4,"R. Kent Jackson","jacksonk@byui.edu","208-496-3771"),
-    new Document(5,"R. Kent Jackson","jacksonk@byui.edu","208-496-3771")
+    new Document(1,"R. Kent Jackson","Birth Certificate and related materials","www.example1.com"),
+    new Document(2,"Rex Barzee","School certificate and other related materials","www.example2.com"),
+    new Document(3,"R. Kent Jackson","Marriage materials and other related materials","wwww.example3.com"),
+    new Document(4,"R. Michael Jackson Jackson","Letters of reccommendation","www.example4.com"),
+    new Document(5,"R. Boss Jackson","Other materials that can not be descripbed","www.example5.com")
   ];
 
 constructor(){
