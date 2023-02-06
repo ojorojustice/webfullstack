@@ -6,10 +6,9 @@ import { ContactService } from './../contact.service';
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
   styleUrls: ['./contact-list.component.css'],
-  providers:[ContactService]
+  
 })
-export class ContactListComponent implements OnInit{
-  @Output() selectedContactEvent = new EventEmitter<Contact>();
+export class ContactListComponent implements OnInit{  
 
     contacts!: Contact[];
  
@@ -27,8 +26,9 @@ ngOnInit(){
 }
 
 onSelected(contact: Contact){
-  
-  this.selectedContactEvent.emit(contact);
+  console.log(contact)
+  this.contactService.contactSelectedEvent.emit(contact);
+  console.log(contact)
 }
 
 }
