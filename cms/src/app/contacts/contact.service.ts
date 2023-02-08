@@ -15,15 +15,7 @@ export class ContactService {
 getContacts(){
   return this.contacts.slice()
 }
-getContact(id:string){
-  console.log('I am here')
-  this.contacts.forEach((contact)=>{
-  if(contact.id === id){
-    return contact
-  }else return false})
-  return null
+getContact(id: string) {
+  return this.contacts.find(contact => contact.id === id) || null;
 }
-
-
-
 }

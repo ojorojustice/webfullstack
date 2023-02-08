@@ -19,11 +19,6 @@ export class DocumentService {
     return this.documents.slice()
   }
   getDocument(id:string){
-    console.log('I am here')
-    this.documents.forEach((document)=>{
-    if(document.id === id){
-      return document
-    }else return false})
-    return null
+    return this.documents.find(document => document.id === id) || null;
   }
 }

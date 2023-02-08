@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Message } from '../../shared/message.model';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-message-edit',
@@ -8,32 +9,31 @@ import { Message } from '../../shared/message.model';
 })
 export class MessageEditComponent implements OnInit{
   currentSender: string = "Ojo Rufus Olajide";
-  id:number = 4;
-  @ViewChild('msgText') msgTextInput!: ElementRef;
+  id:string = '4';
   @ViewChild('subject') subjectInput!: ElementRef;
+  @ViewChild('msgText') msgTextInput!: ElementRef;
   @Output() addMessageEvent = new EventEmitter<Message>();
   
-  constructor(){}
+  constructor(private messageService: MessageService){}
   ngOnInit(): void {    
   }
   
-
-  onSendMessage(){
+ onSendMessage(){
     const messageSender = this.currentSender;
-    const id = this.id + 1;
+    const id = this.id;
     const messageText = this.msgTextInput.nativeElement.value;
     const messageSubject = this.subjectInput.nativeElement.value;
+    console.log(id,messageSubject,messageText,messageSender);
     const newMessage = new Message(id,messageSubject,messageText,messageSender);
-    this.addMessageEvent.emit(newMessage);
+    this.messageService.addMessage(newMessage)
     
   }
   onClear(){
     const messageSender = this.currentSender;
-    const id =this.id + 1;
+    const id =this.id;
     const messageText = "";
     const messageSubject = "";
-    const newMessage = new Message(id,messageText,messageSubject,messageSender);
+    const newMessage = new Message(id,messageSubject,messageText,messageSender);
     this.addMessageEvent.emit(newMessage);
   }
-
 }
