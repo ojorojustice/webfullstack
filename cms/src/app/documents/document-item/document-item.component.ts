@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Document } from  '../document.model';
 
 
@@ -10,5 +10,9 @@ import { Document } from  '../document.model';
 })
 export class DocumentItemComponent {
   @Input() document!: Document;
-
+  @Input() index!: number;
+  
+  ngOnInit(){}
 }
+
+

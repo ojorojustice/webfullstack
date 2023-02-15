@@ -18,8 +18,8 @@ export class DocumentDetailComponent implements OnInit{
       ngOnInit(){ 
         this.route.params.subscribe((params: Params)=>{
           this.id = params['id'];
-          if(this.documentService.getDocument(this.id)!==null){
-          this.document = this.documentService.getDocument(this.id) }else{console.log("no error")}        
+          console.log(params['id'])          
+          this.document = this.documentService.getDocument(this.id) 
         })
       }
 }

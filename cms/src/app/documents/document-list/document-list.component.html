@@ -8,8 +8,9 @@
   <div class="panel-body">
     <div class="center-panel">
       <app-document-item
-        *ngFor="let documentElement of documents"
+        *ngFor="let documentElement of documents; let i = index"
         [document]="documentElement"
+        [index]="i"
       ></app-document-item>
     </div>
   </div>
