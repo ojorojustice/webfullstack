@@ -9,8 +9,8 @@ export class AppComponent{
   title = 'cms';
 @Input() selectedHeader: string = 'documents';
 
-switchView(selectedFeature: string){
-  this.selectedHeader = selectedFeature;
-}
+// switchView(selectedFeature: string){
+//   this.selectedHeader = selectedFeature;
+// }
 
 }

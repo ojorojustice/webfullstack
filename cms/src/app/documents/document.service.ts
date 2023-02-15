@@ -18,6 +18,7 @@ export class DocumentService {
     console.log(this.documents)
     return this.documents.slice()
   }
+
   getDocument(id:string){
     return this.documents.find(document => document.id === id) || null;
   }

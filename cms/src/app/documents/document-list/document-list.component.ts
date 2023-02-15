@@ -21,8 +21,8 @@ ngOnInit(){
   
 }
 
-onSelectedDocument(document: Document){  
-  this.documentService.documentSelectedEvent.emit(document);
-}
+// onSelectedDocument(document: Document){  
+//   this.documentService.documentSelectedEvent.emit(document);
+// }
 
 }

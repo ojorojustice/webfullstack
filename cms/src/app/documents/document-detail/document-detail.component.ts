@@ -1,5 +1,7 @@
-import { Component,Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import {Document} from '../document.model'
+import { DocumentService } from '../document.service';
 
 @Component({
   selector: 'app-document-detail',
@@ -7,11 +9,17 @@ import {Document} from '../document.model'
   styleUrls: ['./document-detail.component.css']
 })
 export class DocumentDetailComponent implements OnInit{
- @Input() document!:Document;
+  document!:Document | null;
+  id!: string;
 
-    constructor(){
+    constructor(private documentService:DocumentService,private route:ActivatedRoute){
 
     }
-      ngOnInit(){  
+      ngOnInit(){ 
+        this.route.params.subscribe((params: Params)=>{
+          this.id = params['id'];
+          if(this.documentService.getDocument(this.id)!==null){
+          this.document = this.documentService.getDocument(this.id) }else{console.log("no error")}        
+        })
       }
 }

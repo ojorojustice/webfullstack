@@ -1,4 +1,7 @@
-<app-header (selectedHeaderEvent)="switchView($event)"></app-header>
-<app-documents *ngIf="selectedHeader === 'documents'"></app-documents>
+<app-header></app-header>
+
+<div class="container pull-left"><router-outlet></router-outlet></div>
+
+<!-- (selectedHeaderEvent)="switchView($event)" <app-documents *ngIf="selectedHeader === 'documents'"></app-documents>
 <app-message-list *ngIf="selectedHeader === 'messages'"></app-message-list>
-<app-contacts *ngIf="selectedHeader === 'contacts'"></app-contacts>
+<app-contacts *ngIf="selectedHeader === 'contacts'"></app-contacts> -->

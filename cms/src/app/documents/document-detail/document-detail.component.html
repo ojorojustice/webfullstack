@@ -15,12 +15,12 @@
     <div class="pad-left-right">
       <div class="row">
         <label>Children:</label>
-        <span class="label-value">{{ document.name || "Not Applicable" }}</span>
+        <span class="label-value">{{ document?.name || "Not Applicable" }}</span>
       </div>
       <br />
       <div class="row">
         <label>URL:</label>
-        <span class="label-value">{{ document.url }}</span>
+        <span class="label-value">{{ document?.url || "Not Applicable" }}</span>
       </div>
     </div>
   </div>
