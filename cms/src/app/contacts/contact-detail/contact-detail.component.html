@@ -5,12 +5,12 @@
         <div class="row">
           <div class="pull-left">
             <div class="col-xs-12">
-              <h3>Bro. {{ contact.name }}</h3>
+              <h3>Bro. {{ contact?.name || "not available" }}</h3>
             </div>
           </div>
           <div class="pull-left">
             <div class="col-xs-12">
-              <img [src]="contact.imageUrl" />
+              <img [src]="contact?.imageUrl" />
             </div>
           </div>
         </div>
@@ -19,12 +19,12 @@
         <div class="row">
           <div class="pull-right">
             <div class="col-xs-12">
-              <button class="btn btn-success">Delete</button>
+              <button class="btn btn-success" (click)="onDelete()">Delete</button>
             </div>
           </div>
           <div class="pull-right">
             <div class="col-xs-12">
-              <button class="btn btn-success">Edit</button>
+              <button class="btn btn-success" [routerLink]="['edit']">Edit</button>
             </div>
           </div>
         </div>
@@ -34,8 +34,8 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-12">
-        <p>Email: {{ contact.email }}</p>
-        <p>Phone: {{ contact.phone }}</p>
+        <p>Email: {{ contact?.email || "not available" }}</p>
+        <p>Phone: {{ contact?.phone || "not available" }}</p>
       </div>
     </div>
   </div>

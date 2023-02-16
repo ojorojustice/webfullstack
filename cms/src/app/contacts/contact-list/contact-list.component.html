@@ -8,7 +8,7 @@
       </div>
       <div class="pull-right">
         <div class="col-xs-12">
-          <button class="btn btn-success">New Contact</button>
+          <button class="btn btn-success" routerLink="new">New Contact</button>
         </div>
       </div>
     </div>
@@ -16,7 +16,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-12">
-      <app-contact-item *ngFor="let contactElement of contacts" [contact]="contactElement" (click)="onSelected(contactElement)"></app-contact-item>
+      <app-contact-item *ngFor="let contactElement of contacts; let i = index" [contact]="contactElement" [index] = "i"></app-contact-item>
       </div>
     </div>
   </div>

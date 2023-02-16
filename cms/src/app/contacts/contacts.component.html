@@ -5,11 +5,8 @@
       ></app-contact-list>
     </div>
     <div class="col-md-6">
-      <app-contact-detail
-        [contact]="selectedContact"
-        *ngIf="selectedContact; else originalTemplate"
-      ></app-contact-detail>
-      <ng-template #originalTemplate>
+      <router-outlet></router-outlet>
+      <!-- <ng-template #originalTemplate>
         <div class="panel panel-default">
           <div class="panel-heading" min-height="50px !important">
             <div class="row">
@@ -52,7 +49,7 @@
             </div>
           </div>
         </div>
-      </ng-template>
+      </ng-template> -->
     </div>
   </div>
 </div>

@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./document-edit.component.css']
 })
 export class DocumentEditComponent {
-
 }

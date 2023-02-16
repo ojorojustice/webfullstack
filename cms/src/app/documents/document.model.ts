@@ -1,19 +1,19 @@
 export class Document{
-    public id: string;
+public id: string;
 
 public name: string;
 
-public children: any[];
-
 public url: string;
 
+public children: any[];
 
 
 
-    constructor (id:string, name:string,children:any[], url:string){
+
+    constructor (id: string, name: string, url: string, children: any[]){
         this.id = id;
         this.name = name;
-        this.children = children ;
         this.url = url;
+        this.children = children ;
     }
 }
