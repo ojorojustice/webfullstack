@@ -29,17 +29,17 @@ export class DocumentService {
     return this.documents[+id] || null;
   }
 
-  deleteDocument(document: Document) {
-   const index = this.documents.findIndex(doc => doc.id === document.id);
-   if (index === -1) {
-      return;
-   }
-   this.documents.splice(index, 1);
-   this.documents.slice()
-   for (const doc of this.documents) {
-      this.documentChangedEvent.emit(doc);
-   }
-}
+//   deleteDocument(document: Document) {
+//    const index = this.documents.findIndex(doc => doc.id === document.id);
+//    if (index === -1) {
+//       return;
+//    }
+//    this.documents.splice(index, 1);
+//    this.documents.slice()
+//    for (const doc of this.documents) {
+//       this.documentChangedEvent.emit(doc);
+//    }
+// }
 
 
 getMaxId(): number {
@@ -65,5 +65,36 @@ addDocument(newDocument: Document | null ) {
     this.documents.push(newDocument);
     const documentsListClone = this.documents.slice();
     this.documentListChangedEvent.next(documentsListClone);  
+}
+
+updateDocument(originalDocument: Document, newDocument: Document) {
+  if (originalDocument == null || newDocument == null) {
+    return;
+  }
+
+  const pos = this.documents.indexOf(originalDocument);
+  if (pos < 0) {
+    return;
+  }
+
+  newDocument.id = originalDocument.id;
+  this.documents[pos] = newDocument;
+  const documentsListClone = this.documents.slice();
+  this.documentListChangedEvent.next(documentsListClone);
+}
+
+deleteDocument(document:Document) {
+  if (document == null) {
+    return;
+  }
+
+  const pos = this.documents.indexOf(document);
+  if (pos < 0) {
+    return;
+  }
+
+  this.documents.splice(pos, 1);
+  const documentsListClone = this.documents.slice();
+  this.documentListChangedEvent.next(documentsListClone);
 }
 }
