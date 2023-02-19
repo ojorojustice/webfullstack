@@ -4,7 +4,7 @@
       <h4 class="title margin-left-right">
         WDD-430 Web Full-Stack Development
       </h4>
-      <div class="row pull-right margin-left-right">
+      <div class="row pull-right margin-left-right">fh
         <a class="btn btn-primary" (click)="onView()">View</a>
         <a class="btn btn-info" [routerLink]="['edit']">Edit</a>
         <a class="btn btn-danger" (click)="onDelete()">Delete</a>
@@ -16,13 +16,13 @@
       <div class="row">
         <label>Children:</label>
         <span class="label-value">{{
-          document?.name || "Not Applicable"
+          document?.name || "No longer available"
         }}</span>
       </div>
       <br />
       <div class="row">
         <label>URL:</label>
-        <span class="label-value">{{ document?.url || "Not Applicable" }}</span>
+        <span class="label-value">{{ document?.url || "No longer available" }}</span>
       </div>
     </div>
   </div>
