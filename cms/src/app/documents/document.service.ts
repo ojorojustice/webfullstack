@@ -64,6 +64,7 @@ addDocument(newDocument: Document | null ) {
     newDocument.id = String(this.maxDocumentId);
     this.documents.push(newDocument);
     const documentsListClone = this.documents.slice();
+    console.log(documentsListClone);
     this.documentListChangedEvent.next(documentsListClone);  
 }
 
