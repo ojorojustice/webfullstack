@@ -16,7 +16,8 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-12">
-      <app-contact-item *ngFor="let contactElement of contacts; let i = index" [contact]="contactElement" [index] = "i"></app-contact-item>
+      <app-contact-item *ngFor="let contactElement of contacts; let i = index" [contact]="contactElement" [index] = "i"
+      dnd-draggable [dragEnabled]="true" [dragData]="contactElement" [dropZones]="['contactGroup']"></app-contact-item>
       </div>
     </div>
   </div>

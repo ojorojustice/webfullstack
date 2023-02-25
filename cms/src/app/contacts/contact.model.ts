@@ -19,6 +19,7 @@ export class Contact{
        // this.imageUrl = imageUrl;
        // this.group = group;   
     //}
+    
     constructor (public id: string,
         public name: string,        
         public email: string,        
