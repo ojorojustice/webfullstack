@@ -2,20 +2,29 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { Subscription } from 'rxjs';
 import { Contact } from '../contact.model';
 import { ContactService } from './../contact.service';
+import { ContactsFilterPipe } from '../contacts-filter.pipe';
 
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.css']  
+  styleUrls: ['./contact-list.component.css'],
+  providers: [ContactsFilterPipe] 
 })
 export class ContactListComponent implements OnInit, OnDestroy{  
     contacts!: Contact[];
     private subscription!: Subscription;
-    contact!: Contact
+    contact!: Contact;
+    term!: string;
 
 constructor(private contactService: ContactService){
  
 }
+
+search(value: string) {
+
+  this.term = value;
+  
+  }
 
 
 ngOnInit(){  

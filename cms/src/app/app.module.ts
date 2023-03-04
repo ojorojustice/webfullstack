@@ -27,6 +27,7 @@ import { DndModule } from 'ng2-dnd';
 import { ContactsFilterPipe } from './contacts/contacts-filter.pipe';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
