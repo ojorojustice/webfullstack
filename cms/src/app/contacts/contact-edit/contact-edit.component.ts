@@ -88,6 +88,7 @@ addToGroup($event: any) {
      return;
   }
   this.groupContacts.push(selectedContact);
+  
 }
 
 onRemoveItem(index: number) {
