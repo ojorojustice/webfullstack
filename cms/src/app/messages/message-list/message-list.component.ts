@@ -8,7 +8,7 @@ import { MessageService } from '../message.service';
   styleUrls: ['./message-list.component.css']
 })
 export class MessageListComponent implements OnInit{
-  messages: Message[]=[]
+  messages: Message[]|any=[]
  
 constructor( private messageService: MessageService){}
 
