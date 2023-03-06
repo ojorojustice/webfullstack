@@ -14,7 +14,6 @@ export class MessageService {
   }
 
   getMessages(){
-    console.log(this.messages)
     return this.messages.slice()
   }
   getMessage(id:string){
@@ -23,6 +22,6 @@ export class MessageService {
 
   addMessage(message: Message){
     this.messages.push(message)
-    this.messageChangedEvent.emit(this.messages.slice())
+    this.messageChangedEvent.next(this.messages.slice())
   }
 }

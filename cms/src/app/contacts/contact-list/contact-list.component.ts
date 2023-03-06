@@ -11,7 +11,7 @@ import { ContactsFilterPipe } from '../contacts-filter.pipe';
   providers: [ContactsFilterPipe] 
 })
 export class ContactListComponent implements OnInit, OnDestroy{  
-    contacts!: Contact[];
+    contacts!: Contact[]|any;
     private subscription!: Subscription;
     contact!: Contact;
     term!: string;
