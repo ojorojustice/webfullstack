@@ -54,6 +54,18 @@ app.use("/documents", documentsRoutes);
 
 // ... ADD YOUR CODE TO MAP YOUR URL'S TO ROUTING FILES HERE ...
 
+// establish a connection to the mongo database
+// mongoose.connect('mongodb://localhost:27017/cms',
+//    { useNewUrlParser: true }, (err, res) => {
+//       if (err) {
+//          console.log('Connection failed: ' + err);
+//       }
+//       else {
+//          console.log('Connected to database!');
+//       }
+//    }
+// );
+
 // Tell express to map all other non-defined routes back to the index page
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "dist/cms/index.html"));
@@ -70,3 +82,12 @@ const server = http.createServer(app);
 server.listen(port, function () {
   console.log("API running on localhost: " + port);
 });
+
+mongoose
+  .connect("mongodb://127.0.0.1:27017/cms", { useNewUrlParser: true })
+  .then(() => {
+    console.log("Connected to database!");
+  })
+  .catch((err) => {
+    console.log("Connection failed: " + err);
+  });
