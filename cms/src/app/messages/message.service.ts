@@ -20,10 +20,10 @@ export class MessageService {
 
   getMessages(){
     // return this.messages.slice();
-    this.http.get("https://contactdocumentmessage-default-rtdb.firebaseio.com/messages.json").subscribe(
+    this.http.get("http://localhost:3000/messages").subscribe(
       // success method
-      (messages: Message[]|any ) => {
-        this.messages = messages;
+      (messagesObjects: Message[]|any ) => {
+        this.messages = messagesObjects.messages;
         this.maxMessageId = this.getMaxId();
         // sort the list of documents
         this.messages.sort((a: any, b:any) => a.id - b.id);
@@ -40,24 +40,49 @@ export class MessageService {
     return this.messages.find(message => message.id === id) || null;
   }
 
-  addMessage(newMessage: Message){
-    if (newMessage == null || newMessage == undefined) {
+
+  addMessage(message: Message) {
+    if (!message) {
       return;
     }
-    this.maxMessageId++;
-      newMessage.id = String(this.maxMessageId);
-      this.messages.push(newMessage);
-    // this.messages.push(message)
-    // this.messageChangedEvent.next(this.messages.slice())
-    this.storeMessages()
+
+    // make sure id of the new Document is empty
+    message.id = '';
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    // add to database
+    this.http.post<{ messsage: string, message: Message }>('http://localhost:3000/messages',
+      message,
+      { headers: headers })
+      .subscribe(
+        (responseData) => {
+          // add new document to documents
+          this.messages.push(responseData.message);
+          this.sortAndSend();
+          
+        }
+      );
   }
+
+  // addMessage(newMessage: Message){
+  //   if (newMessage == null || newMessage == undefined) {
+  //     return;
+  //   }
+  //   this.maxMessageId++;
+  //     newMessage.id = String(this.maxMessageId);
+  //     this.messages.push(newMessage);
+  //   // this.messages.push(message)
+  //   // this.messageChangedEvent.next(this.messages.slice())
+  //   this.storeMessages()
+  // }
 
   storeMessages() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
     const jsonMessages = JSON.stringify(this.messages);
-    this.http.put('https://contactdocumentmessage-default-rtdb.firebaseio.com/messages.json', jsonMessages, { headers }).subscribe(() => {
+    this.http.put('http://localhost:3000/messages', jsonMessages, { headers }).subscribe(() => {
       const messagesListClone = this.messages.slice();
     this.messageListChangedEvent.next(messagesListClone);
     });
@@ -72,6 +97,19 @@ export class MessageService {
       }
     }  
     return maxId
+  }
+
+  sortAndSend(){
+    this.messages.sort((a,b)=>{
+      if (a.sender < b.sender) {
+        return -1;
+      }
+      if (a.sender > b.sender) {
+        return 1;
+      }
+      return 0;
+    });
+    this.messageListChangedEvent.next(this.messages.slice())
   }
 
 }

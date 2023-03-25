@@ -6,12 +6,13 @@ var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+const cors = require("cors");
 
 // import the routing file to handle the default (index) route
 var index = require("./server/routes/app");
 const messageRoutes = require("./server/routes/messages");
 const contactRoutes = require("./server/routes/contacts");
-const documentsRoutes = require("./server/routes/documents");
+const documentRoutes = require("./server/routes/documents");
 
 // ... ADD CODE TO IMPORT YOUR ROUTING FILES HERE ...
 
@@ -19,6 +20,8 @@ var app = express(); // create an instance of express
 
 // Tell express to use the following parsers for POST data
 app.use(bodyParser.json());
+// use CORS
+app.use(cors());
 app.use(
   bodyParser.urlencoded({
     extended: false,
@@ -50,7 +53,7 @@ app.use(express.static(path.join(__dirname, "dist/cms")));
 app.use("/", index);
 app.use("/messages", messageRoutes);
 app.use("/contacts", contactRoutes);
-app.use("/documents", documentsRoutes);
+app.use("/documents", documentRoutes);
 
 // ... ADD YOUR CODE TO MAP YOUR URL'S TO ROUTING FILES HERE ...
 

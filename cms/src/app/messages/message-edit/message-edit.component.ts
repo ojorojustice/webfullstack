@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '
 import { Message } from '../../shared/message.model';
 import { MessageService } from '../message.service';
 
+
 @Component({
   selector: 'app-message-edit',
   templateUrl: './message-edit.component.html',
@@ -20,7 +21,7 @@ export class MessageEditComponent implements OnInit{
   
  onSendMessage(){
     const messageSender = this.currentSender;
-    const id = this.id;
+    const id = '';
     const messageText = this.msgTextInput.nativeElement.value;
     const messageSubject = this.subjectInput.nativeElement.value;
     console.log(id,messageSubject,messageText,messageSender);

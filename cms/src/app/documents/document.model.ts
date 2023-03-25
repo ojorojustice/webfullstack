@@ -5,12 +5,10 @@ public name: string;
 
 public url: string;
 
-public children: any[];
+public children: Document[];
 
 
-
-
-    constructor (id: string, name: string, url: string, children: any[]){
+    constructor (id: string, name: string, url: string, children: Document[]){
         this.id = id;
         this.name = name;
         this.url = url;

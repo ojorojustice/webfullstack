@@ -57,7 +57,6 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     DndModule.forRoot(),
     FormsModule,
-    
   ],
   providers: [],
   bootstrap: [AppComponent]

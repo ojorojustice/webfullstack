@@ -20,10 +20,10 @@ export class ContactService {
   }
 getContacts(){
   // return this.contacts.slice()
-  this.http.get("https://contactdocumentmessage-default-rtdb.firebaseio.com/contacts.json").subscribe(
+  this.http.get("http://localhost:3000/contacts").subscribe(
       // success method
-      (contacts: Contact[]|any ) => {
-        this.contacts = contacts;
+      (contactsObjects: Contact[]|any ) => {
+        this.contacts = contactsObjects.contacts;
         this.maxContactId = this.getMaxId();
         // sort the list of documents
         this.contacts.sort((a: any, b:any) => a.id - b.id);
@@ -36,6 +36,7 @@ getContacts(){
       } 
     );
 }
+
 getContact(id: string) {
   return this.contacts[+id] || null
 }
@@ -67,50 +68,129 @@ getMaxId(): number {
   return maxId
 }
 
-addContact(newContact: Contact | null ) {
-  if (newContact == null || newContact == undefined) {
+addContact(contact: Contact) {
+  if (!contact) {
     return;
   }
-  this.maxContactId++;
-    newContact.id = String(this.maxContactId);
-    this.contacts.push(newContact);
-    // const contactsListClone = this.contacts.slice();
-    // this.contactListChangedEvent.next(contactsListClone);
-    this.storeContacts();  
+
+  // make sure id of the new Document is empty
+  contact.id = '';
+
+  const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+  // add to database
+  this.http.post<{ message: string, contact: Contact }>('http://localhost:3000/contacts',
+  contact,
+    { headers: headers })
+    .subscribe(
+      (responseData) => {
+        // add new document to documents
+        this.contacts.push(responseData.contact);
+        this.sortAndSend();
+        
+      }
+    );
 }
+
+
+// addContact(newContact: Contact | null ) {
+//   if (newContact == null || newContact == undefined) {
+//     return;
+//   }
+//   this.maxContactId++;
+//     newContact.id = String(this.maxContactId);
+//     this.contacts.push(newContact);
+//     // const contactsListClone = this.contacts.slice();
+//     // this.contactListChangedEvent.next(contactsListClone);
+//     this.storeContacts();  
+// }
+
 
 updateContact(originalContact: Contact, newContact: Contact) {
-  if (originalContact == null || newContact == null) {
+  if (!originalContact || !newContact) {
     return;
   }
 
-  const pos = this.contacts.indexOf(originalContact);
+  const pos = this.contacts.findIndex(d => d.id === originalContact.id);
+
   if (pos < 0) {
     return;
   }
 
+  // set the id of the new Document to the id of the old Document
   newContact.id = originalContact.id;
-  this.contacts[pos] = newContact;
-  // const contactsListClone = this.contacts.slice();
-  // this.contactListChangedEvent.next(contactsListClone);
-  this.storeContacts();
+  // newDocument._id = originalDocument._id;
+
+  const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+  // update database
+  this.http.put('http://localhost:3000/contacts/' + originalContact.id,
+    newContact, { headers: headers })
+    .subscribe(
+      () => {
+        this.contacts[pos] = newContact;
+        this.sortAndSend();
+      }
+    );
 }
 
-deleteContact(contact:Contact) {
-  if (contact == null) {
+// updateContact(originalContact: Contact, newContact: Contact) {
+//   if (originalContact == null || newContact == null) {
+//     return;
+//   }
+
+//   const pos = this.contacts.indexOf(originalContact);
+//   if (pos < 0) {
+//     return;
+//   }
+
+//   newContact.id = originalContact.id;
+//   this.contacts[pos] = newContact;
+//   // const contactsListClone = this.contacts.slice();
+//   // this.contactListChangedEvent.next(contactsListClone);
+//   this.storeContacts();
+// }
+
+
+deleteContact(contact: Contact) {
+
+  if (!document) {
     return;
   }
 
-  const pos = this.contacts.indexOf(contact);
+  const pos = this.contacts.findIndex(d => d.id === contact.id);
+
   if (pos < 0) {
     return;
   }
 
-  this.contacts.splice(pos, 1);
-  // const contactsListClone = this.contacts.slice();
-  // this.contactListChangedEvent.next(contactsListClone);
-  this.storeContacts()
+  // delete from database
+  this.http.delete('http://localhost:3000/documents/' + contact.id)
+    .subscribe(
+      () => {
+        this.contacts.splice(pos, 1);
+        this.sortAndSend();
+      }
+    );
 }
+
+
+
+// deleteContact(contact:Contact) {
+//   if (contact == null) {
+//     return;
+//   }
+
+//   const pos = this.contacts.indexOf(contact);
+//   if (pos < 0) {
+//     return;
+//   }
+
+//   this.contacts.splice(pos, 1);
+//   // const contactsListClone = this.contacts.slice();
+//   // this.contactListChangedEvent.next(contactsListClone);
+//   this.storeContacts()
+// }
 
 storeContacts() {
   const headers = new HttpHeaders({
@@ -121,5 +201,18 @@ storeContacts() {
     const documentsListClone = this.contacts.slice();
   this.contactListChangedEvent.next(documentsListClone);
   });
+}
+
+sortAndSend(){
+  this.contacts.sort((a,b)=>{
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+  this.contactListChangedEvent.next(this.contacts.slice())
 }
 }

@@ -2,7 +2,9 @@ import { Document } from './document.model';
 import { Subject } from 'rxjs';
 import {EventEmitter, Injectable } from '@angular/core';
 import {MOCKDOCUMENTS} from './MOCKDOCUMENTS';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,16 +18,17 @@ export class DocumentService {
   
 
   constructor(private http:HttpClient) { 
-    this.documents = MOCKDOCUMENTS;
+    // this.documents = MOCKDOCUMENTS;
+    this.documents = [];
     this.maxDocumentId = this.getMaxId();
   }
 
   getDocuments(){
-    // return this.documents.slice()
-    this.http.get("https://contactdocumentmessage-default-rtdb.firebaseio.com/documents.json").subscribe(
+    // return this.documents.slice() https://contactdocumentmessage-default-rtdb.firebaseio.com/documents.jsonhttp://localhost:3000/documents
+    this.http.get("http://localhost:3000/documents").subscribe(
       // success method
-      (documents: Document[]|any ) => {
-        this.documents = documents;
+      (documentsObject: Document[]|any ) => {
+        this.documents = documentsObject.documents;
         this.maxDocumentId = this.getMaxId();
         // sort the list of documents
         this.documents.sort((a: any, b:any) => a.id - b.id);
@@ -73,49 +76,127 @@ getMaxId(): number {
   return maxId
 }
 
-addDocument(newDocument: Document | null ) {
-  if (newDocument == null || newDocument == undefined) {
-    return;
+
+
+addDocument(document: Document) {
+    if (!document) {
+      return;
+    }
+
+    // make sure id of the new Document is empty
+    document.id = '';
+   
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    
+    // add to database
+    this.http.post<{ message: string, document: Document }>('http://localhost:3000/documents',
+      document,
+      { headers: headers })
+      .subscribe(
+        (responseData) => {
+          // add new document to documents
+          this.documents.push(responseData.document);
+          this.sortAndSend();
+        }
+      );
   }
-  this.maxDocumentId++;
-    newDocument.id = String(this.maxDocumentId);
-    this.documents.push(newDocument);
-    // const documentsListClone = this.documents.slice();
-    // this.documentListChangedEvent.next(documentsListClone);  
-    this.storeDocuments()
-}
+
+// addDocument(newDocument: Document | null ) {
+//   if (newDocument == null || newDocument == undefined) {
+//     return;
+//   }
+//   this.maxDocumentId++;
+//     newDocument.id = String(this.maxDocumentId);
+//     this.documents.push(newDocument);
+//     // const documentsListClone = this.documents.slice();
+//     // this.documentListChangedEvent.next(documentsListClone);  
+//     this.storeDocuments()
+// }
+
 
 updateDocument(originalDocument: Document, newDocument: Document) {
-  if (originalDocument == null || newDocument == null) {
+  if (!originalDocument || !newDocument) {
     return;
   }
 
-  const pos = this.documents.indexOf(originalDocument);
+  const pos = this.documents.findIndex(d => d.id === originalDocument.id);
+
   if (pos < 0) {
     return;
   }
 
+  // set the id of the new Document to the id of the old Document
   newDocument.id = originalDocument.id;
-  this.documents[pos] = newDocument;
-  // const documentsListClone = this.documents.slice();
-  // this.documentListChangedEvent.next(documentsListClone);
-  this.storeDocuments()
+  // newDocument._id = originalDocument._id;
+
+  const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+  // update database
+  this.http.put('http://localhost:3000/documents/' + originalDocument.id,
+    newDocument, { headers: headers })
+    .subscribe(
+      () => {
+        this.documents[pos] = newDocument;
+        this.sortAndSend();
+        
+      }
+    );
 }
 
-deleteDocument(document:Document) {
-  if (document == null) {
+// updateDocument(originalDocument: Document, newDocument: Document) {
+//   if (originalDocument == null || newDocument == null) {
+//     return;
+//   }
+
+//   const pos = this.documents.indexOf(originalDocument);
+//   if (pos < 0) {
+//     return;
+//   }
+
+//   newDocument.id = originalDocument.id;
+//   this.documents[pos] = newDocument;
+//   // const documentsListClone = this.documents.slice();
+//   // this.documentListChangedEvent.next(documentsListClone);
+//   this.storeDocuments()
+// }
+
+
+
+sortAndSend(){
+  this.documents.sort((a,b)=>{
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+  this.documentListChangedEvent.next(this.documents.slice())
+}
+
+
+deleteDocument(document: Document) {
+
+  if (!document) {
     return;
   }
 
-  const pos = this.documents.indexOf(document);
+  const pos = this.documents.findIndex(d => d.id === document.id);
+
   if (pos < 0) {
     return;
   }
 
-  this.documents.splice(pos, 1);
-  // const documentsListClone = this.documents.slice();
-  // this.documentListChangedEvent.next(documentsListClone);
-  this.storeDocuments();
+  // delete from database
+  this.http.delete('http://localhost:3000/documents/' + document.id)
+    .subscribe(
+      () => {
+        this.documents.splice(pos, 1);
+        this.sortAndSend();
+      }
+    );
 }
 
 
@@ -124,7 +205,7 @@ storeDocuments() {
     'Content-Type': 'application/json'
   });
   const jsonDocuments = JSON.stringify(this.documents);
-  this.http.put('https://contactdocumentmessage-default-rtdb.firebaseio.com/documents.json', jsonDocuments, { headers }).subscribe(() => {
+  this.http.put('http://localhost:3000/documents/ ', jsonDocuments, { headers }).subscribe(() => {
     const documentsListClone = this.documents.slice();
   this.documentListChangedEvent.next(documentsListClone);
   });
