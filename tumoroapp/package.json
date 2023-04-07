@@ -8,14 +8,15 @@
     "start": "node app"
   },
   "dependencies": {
-    "express":"*",
-    "body-parser":"*",
-    "cors":"*",
-    "mongoose":"*",
-    "passport":"*",
-    "bcryptjs":"*",
-    "passport-jwt":"*",
-    "jsonwebtoken":"*"
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-jwt": "*"
   },
   "author": "Ojo Rufus Olajide",
   "license": "ISC"

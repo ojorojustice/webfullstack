@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto mt-5">
+      <div class="card shadow">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Report Form</h4>
+          <form>
+            <div class="form-group">
+              <label for="report-type">Type of Report</label>
+              <select class="form-control" id="report-type">
+                <option>Accident</option>
+                <option>Complaint</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="report-description">Description</label>
+              <textarea
+                class="form-control"
+                id="report-description"
+                rows="3"
+              ></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="report-date">Date</label>
+                <input type="date" class="form-control" id="report-date" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="report-time">Time</label>
+                <input type="time" class="form-control" id="report-time" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="report-location">Location</label>
+              <input
+                type="text"
+                class="form-control"
+                id="report-location"
+                placeholder="Enter location"
+              />
+            </div>
+            <div class="form-group">
+              <label for="report-attachments">Attachments</label>
+              <input
+                type="file"
+                class="form-control-file"
+                id="report-attachments"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block mt-4">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
