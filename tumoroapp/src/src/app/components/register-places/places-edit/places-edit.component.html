@@ -1,0 +1,228 @@
+<!-- <div class="panel panel-default">
+  <div class="panel-body">
+    <form id="contact-edit" (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control required"
+            size="120"
+            name="name"
+            ngModel
+            required
+            max="120"
+            #name="ngModel"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="email">Email:</label>
+          <input
+            type="text"
+            id="email"
+            class="form-control required"
+            size="120"
+            name="email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            required
+            ngModel
+            max="255"
+            #email="ngModel"
+          />
+        </div>
+        <div class="alert alert-danger" *ngIf="!email.valid && email.touched">
+          Enter a valid email address.
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="phone">Phone:</label>
+          <input
+            type="text"
+            id="phone"
+            class="form-control invalid"
+            size="150"
+            name="phone"
+            pattern="\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*"
+            ngModel
+            max="255"
+            #phone="ngModel"
+          />
+        </div>
+        <div class="alert alert-danger" *ngIf="!phone.valid && phone.touched">
+          Enter a valid phone number.
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="imageUrl">Image URL:</label>
+          <input
+            type="text"
+            id="imageUrl"
+            class="form-control"
+            size="150"
+            name="imageUrl"
+            ngModel
+            max="255"
+            #imageUrl="ngModel"
+          />
+        </div>
+      </div>
+
+   
+      <div class="alert alert-danger" *ngIf="!name.valid && !name.touched">
+        The Name and Email fields are required.
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 btn-toolbar">
+          <button class="btn btn-success" type="submit" [disabled]="!f.valid">
+            Save
+          </button>
+          <button class="btn btn-primary" type="button" (click)="onCancel()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div> -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mx-auto mt-5">
+      <div class="card shadow">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Register a Child Protection Place</h4>
+          <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <div class="form-group">
+              <label for="name">Full Name:</label>
+              <input
+                type="text"
+                id="name"
+                class="form-control required"
+                size="120"
+                name="name"
+                ngModel
+                required
+                max="120"
+                #name="ngModel"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address:</label>
+              <input
+              type="text"
+              id="email"
+              class="form-control required"
+              size="120"
+              name="email"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+              required
+              ngModel
+              max="255"
+              #email="ngModel"
+            />
+            <div class="alert alert-danger" *ngIf="!email.valid && email.touched">
+              Enter a valid email address.
+            </div>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone:</label>
+              <input
+            type="text"
+            id="phone"
+            class="form-control invalid"
+            size="150"
+            name="phone"
+            pattern="\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*"
+            ngModel
+            max="255"
+            #phone="ngModel"
+          />
+          <div class="alert alert-danger" *ngIf="!phone.valid && phone.touched">
+            Enter a valid phone number.
+          </div>
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password:</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+              />
+            </div>
+            <div class="form-group">
+              <label for="country">Country:</label>
+              <select class="form-control" id="country">
+                <option>United States</option>
+                <option>United Kingdom</option>
+                <option>Canada</option>
+                <option>Australia</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="address">Address:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                placeholder="Enter Address"
+              />
+            </div>
+            <div class="form-group">
+              <label for="city">City:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="city"
+                placeholder="Enter City"
+              />
+            </div>
+            <div class="form-group">
+              <label for="state">State:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="state"
+                placeholder="Enter State"
+              />
+            </div>
+            <div class="form-group">
+              <label for="zip">Zip/Postal Code:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="zip"
+                placeholder="Enter Zip/Postal Code"
+              />
+            </div>
+            <div class="alert alert-danger" *ngIf="!name.valid && !name.touched">
+              The Name and Email fields are required.
+            </div>
+      
+            <div class="row">
+              <div class="col-xs-12 btn-toolbar">
+                <button class="btn btn-success" type="submit" [disabled]="!f.valid">
+                  Save
+                </button>
+                <button class="btn btn-primary" type="button" (click)="onCancel()">
+                  Cancel
+                </button>
+              </div>
+              </div>
+            <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,10 +4,13 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const config = require("../../config/database");
 const User = require("../models/users");
+const sequenceGenerator = require("./sequenceGenerator");
 
 router.post("/register", (req, res, next) => {
+  const maxUsersId = sequenceGenerator.nextId("users");
   // res.send("Register users here");
   let newUser = new User({
+    id: maxUsersId,
     name: req.body.name,
     email: req.body.email,
     username: req.body.username,
@@ -30,11 +33,11 @@ router.post("/update", (req, res, next) => {
 
 router.get(
   "/profile",
-  passport.authenticate("jwt", { session: false }, (err, d, a)=>{
-    console.log(err, d, a)
+  passport.authenticate("jwt", { session: false }, (err, d, a) => {
+    console.log(err, d, a);
   }),
   (req, res, next) => {
-    console.log("got here");
+    console.log(req.user);
     res.send({ user: req.user });
   }
 );

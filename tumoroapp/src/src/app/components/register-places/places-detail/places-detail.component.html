@@ -1,0 +1,44 @@
+<div class="panel panel-default">
+    <div class="panel-heading" min-height="50px !important">
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="row">
+            <div class="pull-left">
+              <div class="col-xs-12">
+                <h3>Bro. {{ place?.name || "not available" }}</h3>
+              </div>
+            </div>
+            <div class="pull-left">
+              <div class="col-xs-12">
+                <img [src]="" />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-xs-12">
+          <p>Email: {{ place?.email || "not available" }}</p>
+          <p>Phone: {{ place?.phone || "not available" }}</p>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="row">
+          <div class="pull-right">
+            <div class="col-xs-12">
+              <button class="btn btn-success" (click)="onDelete()">Delete</button>
+            </div>
+          </div>
+          <div class="pull-right">
+            <div class="col-xs-12">
+              <button class="btn btn-success" [routerLink]="['edit']">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

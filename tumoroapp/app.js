@@ -1,3 +1,4 @@
+
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -7,9 +8,11 @@ const mongoose = require("mongoose");
 const config = require("./config/database");
 const session = require("express-session");
 
+
 const app = express();
 const port = 3000;
 const users = require("./server/routes/users");
+const places = require("./server/routes/places");
 
 app.use(cors());
 
@@ -40,6 +43,7 @@ app.use(passport.session());
 require("./config/passport")(passport);
 
 app.use("/users", users);
+app.use("/places", places);
 
 app.get("/", (req, res) => {
   res.send(" Invalid port");
